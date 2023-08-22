@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+/datos
+EDA_t1.pdf
