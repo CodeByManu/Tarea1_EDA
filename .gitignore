@@ -34,3 +34,5 @@
 /datos
 EDA_t1.pdf
 .DS_Store
+.vscode
+*.code-workspace
