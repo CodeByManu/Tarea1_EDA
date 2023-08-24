@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <random>
+#include <string>
 
 #define N 10
 
@@ -20,27 +21,31 @@ void BucketSort(int *, int);
 
 void RadixSort();
 
+int getRandomInt(int, int);
+
 int main(int argc, char *argv[]){
     string ifile_name = argv[1];
     char alg = *argv[2];
     int A[10];
 
-    random_device rd;
+    srand(time(nullptr));
+    /* random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0, 10);
+    uniform_int_distribution<int> dis(0, 10); */
     
-    for (int i = 0; i < 10; i++) A[i] = dis(gen);
+    for (int i = 0; i < 10; i++) A[i] = getRandomInt(0, 10);
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
     cout << endl;
+    cout << "Hello World!" << endl;
     InsertSort(A);
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
-    
+
     // ifstream ifile(ifile_name);
     // ofstream ofile(ifile_name+".sorted");
 }
 
 void InsertSort(int *A){
-    for (int i = 1; i <= N; i++) {
+    for (int i = 1; i < N; i++) {
         int elem = A[i];
         int j = i-1;
         while (j >= 0 && elem < A[j]) {
@@ -52,7 +57,7 @@ void InsertSort(int *A){
 }
 
 void Merge(int *A, int i, int j, int k) {
-    int Aux[j-i+1] = {};
+    int Aux[j-i+1];
     int q = 0;
     int p1 = i;
     int p2 = k + 1;
@@ -95,10 +100,10 @@ void MergeSort(int *A, int i, int j) {
 }
 
 int Split(int *A, int i, int j) {
-    random_device rd;
+    /* random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(i, j);
-    int p = dis(gen);
+    uniform_int_distribution<int> dis(i, j); */
+    int p = getRandomInt(i, j);
 
     while (i < j) {
         while (i < p and A[i] <= A[p]) {
@@ -135,4 +140,9 @@ void BucketSort(int *A, int B) {
 
 void RadixSort() {
     
+}
+
+int getRandomInt(int min, int max){
+    float a = rand() / static_cast<float>(RAND_MAX);
+    return static_cast<int>(a * (max - min) + min + 0.5);
 }
