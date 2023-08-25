@@ -17,6 +17,8 @@ int Split(int *, int, int);
 
 void QuickSort(int *, int, int);
 
+int MaxValue(int*);
+
 void BucketSort(int *, int);
 
 void RadixSort();
@@ -134,8 +136,20 @@ void QuickSort(int *A, int i, int j) {
     }
 }
 
-void BucketSort(int *A, int B) {
+int MaxValue(int *A){
+    int Max = 0;
+    for (int i = 0; i < sizeof(A); i++){
+        if (A[i] > Max) Max = A[i];
+    }
+    return Max;
+}
 
+void BucketSort(int *A, int B) {
+    int **buckets, **Aux;
+    int max = MaxValue(A);
+    for(int i = 0; i < max; i++){
+        A[i];
+    }
 }
 
 void RadixSort() {
