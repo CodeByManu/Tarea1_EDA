@@ -147,20 +147,27 @@ int MaxValue(int *A){
 }
 
 void BucketSort(int *A, int n) {
+    int k = 0;
     int M = MaxValue(A);
     int *Aux = new(int);
-    int **B = new(int *);
-    for(int i = 0; i < M + 1; i++){
-        B[i] = new(int);
+    vector<vector<int>> B;
+    for(int i = 0; i < M + 1; i++) {
+        B.push_back(vector<int>());
     }
-    for(int i = 0; i < M + 1; i++){
-        Aux[i] = 0;
-        cout << Aux[i] << endl;
+    for(int i = 0; i < n; i++){
+        B[A[i]].push_back(A[i]);
     }
-    for(int i = 0; i < M + 1; i++){
-        cout << Aux[A[i]] << endl;
-        B[A[i]][Aux[A[i]]] = A[i];
-        Aux[A[i]]++;
+
+    for(int i = 0; i < M + 1; i++) {
+        if (B[i].size() > 0) {
+            for(int j = 0; j < B[i].size(); j++){
+                Aux[k] = B[i][j];
+                k++;
+            }
+        }
+    }
+    for(int i = 0; i < n; i++){
+        A[i] = Aux[i];
     }
 }
 
