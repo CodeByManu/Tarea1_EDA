@@ -2,6 +2,7 @@
 #include <fstream>
 #include <random>
 #include <string>
+#include <vector>
 
 #define N 10
 
@@ -39,7 +40,8 @@ int main(int argc, char *argv[]){
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
     cout << endl;
     cout << "Hello World!" << endl;
-    InsertSort(A);
+    BucketSort(A, N);
+    // InsertSort(A);
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
 
     // ifstream ifile(ifile_name);
@@ -144,11 +146,21 @@ int MaxValue(int *A){
     return Max;
 }
 
-void BucketSort(int *A, int B) {
-    int **buckets, **Aux;
-    int max = MaxValue(A);
-    for(int i = 0; i < max; i++){
-        A[i];
+void BucketSort(int *A, int n) {
+    int M = MaxValue(A);
+    int *Aux = new(int);
+    int **B = new(int *);
+    for(int i = 0; i < M + 1; i++){
+        B[i] = new(int);
+    }
+    for(int i = 0; i < M + 1; i++){
+        Aux[i] = 0;
+        cout << Aux[i] << endl;
+    }
+    for(int i = 0; i < M + 1; i++){
+        cout << Aux[A[i]] << endl;
+        B[A[i]][Aux[A[i]]] = A[i];
+        Aux[A[i]]++;
     }
 }
 
