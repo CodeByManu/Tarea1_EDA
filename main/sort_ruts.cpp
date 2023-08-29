@@ -32,9 +32,6 @@ int main(int argc, char *argv[]){
     int A[10];
 
     srand(time(nullptr));
-    /* random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0, 10); */
     
     for (int i = 0; i < 10; i++) A[i] = getRandomInt(0, 10);
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
@@ -104,9 +101,7 @@ void MergeSort(int *A, int i, int j) {
 }
 
 int Split(int *A, int i, int j) {
-    /* random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(i, j); */
+
     int p = getRandomInt(i, j);
 
     while (i < j) {
@@ -171,8 +166,17 @@ void BucketSort(int *A, int n) {
     }
 }
 
-void RadixSort() {
-    
+void RadixSort(int *A, int n) {
+    int M = MaxValue(A);
+    for(int i  = 1; i < pow(10, M), i *= 10){
+        int k = 0;
+        vector<vector<int>> B(10);
+        int *Aux = new int[n];
+        for(int j = 0; j < n; j++){
+            int d = (A[j]/i) % 10;
+            B[d].push_back(j);
+        }
+    }
 }
 
 int getRandomInt(int min, int max){
