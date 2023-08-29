@@ -22,7 +22,7 @@ int MaxValue(int*);
 
 void BucketSort(int *, int);
 
-void RadixSort();
+void RadixSort(int *, int);
 
 int getRandomInt(int, int);
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]){
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
     cout << endl;
     cout << "Hello World!" << endl;
-    BucketSort(A, N);
+    RadixSort(A, N);
     // InsertSort(A);
     for (int i = 0; i < 10; i++) cout << A[i] << ", ";
 
@@ -168,16 +168,29 @@ void BucketSort(int *A, int n) {
 
 void RadixSort(int *A, int n) {
     int M = MaxValue(A);
-    for(int i  = 1; i < pow(10, M), i *= 10){
+    for(int i  = 1; i < pow(10, M); i *= 10){
         int k = 0;
+        int Aux[n];
         vector<vector<int>> B(10);
-        int *Aux = new int[n];
         for(int j = 0; j < n; j++){
             int d = (A[j]/i) % 10;
             B[d].push_back(j);
         }
+        for(int i = 0; i < 10; i++){
+            if(B[i].size() > 0){
+                for(int j : B[i]){
+                    Aux[k] = A[j];
+                    k++;
+                    
+                }
+            }
+        }
+        for(int i = 0; i < n; i++){
+            A[i] = Aux[i];
+        }
     }
 }
+
 
 int getRandomInt(int min, int max){
     float a = rand() / static_cast<float>(RAND_MAX);
