@@ -4,11 +4,9 @@
 #include <string>
 #include <vector>
 
-#define N 10
-
 using namespace std;
 
-void InsertSort(int *);
+void InsertSort(int *, int);
 
 void Merge(int *, int, int, int);
 
@@ -29,24 +27,33 @@ int getRandomInt(int, int);
 int main(int argc, char *argv[]){
     string ifile_name = argv[1];
     char alg = *argv[2];
-    int A[10];
 
-    srand(time(nullptr));
+    ifstream input_file("../datos/"+ifile_name);
+    ofstream output_file("../datos/"+ifile_name+".sorted");
     
-    for (int i = 0; i < 10; i++) A[i] = getRandomInt(0, 10);
-    for (int i = 0; i < 10; i++) cout << A[i] << ", ";
-    cout << endl;
-    cout << "Hello World!" << endl;
-    RadixSort(A, N);
-    // InsertSort(A);
-    for (int i = 0; i < 10; i++) cout << A[i] << ", ";
+    string line;
+    int *A = new(int);
+    int size = 0;
+    while(getline(input_file, line)) {
+        int rut = stoi(line);
+        A[size] = rut;
+        size++;
+    }
+    
+    if(alg == 'I') InsertSort(A, size), cout << "InsertSort" << endl;
+    else if(alg == 'M') MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
+    else if(alg == 'Q') QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
+    else if(alg == 'R') RadixSort(A, size), cout << "RadixSort" << endl;
 
-    // ifstream ifile(ifile_name);
-    // ofstream ofile(ifile_name+".sorted");
+    for(int k = 0; k < size; k++) output_file << A[k] << endl;
+
+    delete[] A;
+    input_file.close();
+    output_file.close();
 }
 
-void InsertSort(int *A){
-    for (int i = 1; i < N; i++) {
+void InsertSort(int *A, int size){
+    for (int i = 1; i < size; i++) {
         int elem = A[i];
         int j = i-1;
         while (j >= 0 && elem < A[j]) {
@@ -84,7 +91,7 @@ void Merge(int *A, int i, int j, int k) {
         q++;
     }
     int r = 0;
-    for (int s = i; i <= j; s++) {
+    for (int s = i; s <= j; s++) {
         A[s] = Aux[r];
         r++;
     }
@@ -166,13 +173,13 @@ void BucketSort(int *A, int n) {
     }
 }
 
-void RadixSort(int *A, int n) {
+void RadixSort(int *A, int size) {
     int M = MaxValue(A);
     for(int i  = 1; i < pow(10, M); i *= 10){
         int k = 0;
-        int Aux[n];
+        int Aux[size];
         vector<vector<int>> B(10);
-        for(int j = 0; j < n; j++){
+        for(int j = 0; j < size; j++){
             int d = (A[j]/i) % 10;
             B[d].push_back(j);
         }
@@ -185,7 +192,7 @@ void RadixSort(int *A, int n) {
                 }
             }
         }
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < size; i++){
             A[i] = Aux[i];
         }
     }
