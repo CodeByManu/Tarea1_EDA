@@ -30,9 +30,9 @@ int main(int argc, char *argv[]){
 
     ifstream input_file("../datos/"+ifile_name);
     ofstream output_file("../datos/"+ifile_name+".sorted");
-    
+
     string line;
-    int *A = new(int);
+    int *A = new int;
     int size = 0;
     while(getline(input_file, line)) {
         int rut = stoi(line);
@@ -40,14 +40,17 @@ int main(int argc, char *argv[]){
         size++;
     }
     
+
+    
     if(alg == 'I') InsertSort(A, size), cout << "InsertSort" << endl;
     else if(alg == 'M') MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
     else if(alg == 'Q') QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
     else if(alg == 'R') RadixSort(A, size), cout << "RadixSort" << endl;
 
     for(int k = 0; k < size; k++) output_file << A[k] << endl;
-
-    delete[] A;
+    
+    delete A;
+    
     input_file.close();
     output_file.close();
 }
