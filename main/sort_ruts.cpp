@@ -16,7 +16,7 @@ int Split(int *, int, int);
 
 void QuickSort(int *, int, int);
 
-int MaxValue(int*);
+int MaxValue(int*, int);
 
 void BucketSort(int *, int);
 
@@ -28,16 +28,22 @@ int main(int argc, char *argv[]){
     string ifile_name = argv[1];
     char alg = *argv[2];
 
+    int begining = ifile_name.find('_');
+    int end = ifile_name.find('.');
+
+    int size = stoi(ifile_name.substr(begining + 1, end - begining - 1));
+
     ifstream input_file("../datos/"+ifile_name);
     ofstream output_file("../datos/"+ifile_name+".sorted");
 
     string line;
-    int *A = new int;
-    int size = 0;
+    int A[size];
+    //int A[100];
+    int n = 0;
     while(getline(input_file, line)) {
         int rut = stoi(line);
-        A[size] = rut;
-        size++;
+        A[n] = rut;
+        n++;
     }
     
 
@@ -49,7 +55,7 @@ int main(int argc, char *argv[]){
 
     for(int k = 0; k < size; k++) output_file << A[k] << endl;
     
-    delete A;
+    //delete[] A;
     
     input_file.close();
     output_file.close();
@@ -143,23 +149,23 @@ void QuickSort(int *A, int i, int j) {
     }
 }
 
-int MaxValue(int *A){
+int MaxValue(int *A, int size){
     int Max = 0;
-    for (int i = 0; i < sizeof(A); i++){
+    for (int i = 0; i < size; i++){
         if (A[i] > Max) Max = A[i];
     }
     return Max;
 }
 
-void BucketSort(int *A, int n) {
+void BucketSort(int *A, int size) {
     int k = 0;
-    int M = MaxValue(A);
-    int *Aux = new(int);
+    int M = MaxValue(A, size);
+    int Aux[size];
     vector<vector<int>> B;
     for(int i = 0; i < M + 1; i++) {
         B.push_back(vector<int>());
     }
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < size; i++){
         B[A[i]].push_back(A[i]);
     }
 
@@ -171,14 +177,15 @@ void BucketSort(int *A, int n) {
             }
         }
     }
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < size; i++){
         A[i] = Aux[i];
     }
+    //delete[] Aux;
 }
 
 void RadixSort(int *A, int size) {
-    int M = MaxValue(A);
-    for(int i  = 1; i < pow(10, M); i *= 10){
+    int M = MaxValue(A, size);
+    for(int i  = 1; i <= M; i *= 10){
         int k = 0;
         int Aux[size];
         vector<vector<int>> B(10);
@@ -186,23 +193,24 @@ void RadixSort(int *A, int size) {
             int d = (A[j]/i) % 10;
             B[d].push_back(j);
         }
-        for(int i = 0; i < 10; i++){
-            if(B[i].size() > 0){
-                for(int j : B[i]){
+        for(int m = 0; m < 10; m++){
+            if(B[m].size() > 0){
+                for(int j : B[m]){
                     Aux[k] = A[j];
                     k++;
                     
                 }
             }
         }
-        for(int i = 0; i < size; i++){
-            A[i] = Aux[i];
+        for(int n = 0; n < size; n++){
+            A[n] = Aux[n];
         }
     }
 }
 
 
 int getRandomInt(int min, int max){
+    srand(time(nullptr));
     float a = rand() / static_cast<float>(RAND_MAX);
     return static_cast<int>(a * (max - min) + min + 0.5);
 }
