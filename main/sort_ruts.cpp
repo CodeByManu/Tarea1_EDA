@@ -6,11 +6,11 @@
 
 using namespace std;
 
-void InsertSort(int *, int);
+void InsertSort(long int *, int);
 
-void Merge(int *, int, int, int);
+void Merge(long int *, long int, long int, long int);
 
-void MergeSort(int *, int, int);
+void MergeSort(long int *, long int, long int);
 
 int Split(int *, int, int);
 
@@ -31,37 +31,32 @@ int main(int argc, char *argv[]){
     int begining = ifile_name.find('_');
     int end = ifile_name.find('.');
 
-    int size = stoi(ifile_name.substr(begining + 1, end - begining - 1));
+    long int size = stoi(ifile_name.substr(begining + 1, end - begining - 1));
 
-    ifstream input_file("../datos/"+ifile_name);
-    ofstream output_file("../datos/"+ifile_name+".sorted");
+    ifstream input_file("../../datos/"+ifile_name);
+    ofstream output_file("../../datos/"+ifile_name+".sorted");
 
     string line;
-    int A[size];
-    //int A[100];
-    int n = 0;
+    long int A[size];
+    long int n = 0;
     while(getline(input_file, line)) {
         int rut = stoi(line);
         A[n] = rut;
         n++;
     }
     
-
-    
-    if(alg == 'I') InsertSort(A, size), cout << "InsertSort" << endl;
-    else if(alg == 'M') MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
-    else if(alg == 'Q') QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
-    else if(alg == 'R') RadixSort(A, size), cout << "RadixSort" << endl;
+    // if(alg == 'I') InsertSort(A, size), cout << "InsertSort" << endl;
+    if(alg == 'M') MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
+    // else if(alg == 'Q') QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
+    // else if(alg == 'R') RadixSort(A, size), cout << "RadixSort" << endl;
 
     for(int k = 0; k < size; k++) output_file << A[k] << endl;
-    
-    //delete[] A;
     
     input_file.close();
     output_file.close();
 }
 
-void InsertSort(int *A, int size){
+void InsertSort(long int *A, int size){
     for (int i = 1; i < size; i++) {
         int elem = A[i];
         int j = i-1;
@@ -73,7 +68,7 @@ void InsertSort(int *A, int size){
     }
 }
 
-void Merge(int *A, int i, int j, int k) {
+void Merge(long int *A, long int i, long int j, long int k) {
     int Aux[j-i+1];
     int q = 0;
     int p1 = i;
@@ -106,8 +101,8 @@ void Merge(int *A, int i, int j, int k) {
     }
 }
 
-void MergeSort(int *A, int i, int j) {
-    int k = (i + j)/2;
+void MergeSort(long int *A,long int i,long int j) {
+    long int k = (i + j)/2;
 
     if (i < j) {
         MergeSort(A, i, k);
