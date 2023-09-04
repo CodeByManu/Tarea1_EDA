@@ -6,19 +6,19 @@
 
 using namespace std;
 
-void InsertSort(vector<int>, int);
+vector<int> InsertSort(vector<int>, int);
 
-void Merge(vector<int>, int, int, int);
+vector<int> Merge(vector<int>, int, int, int);
 
-void MergeSort(vector<int>, int, int);
+vector<int> MergeSort(vector<int>, int, int);
 
 int Split(vector<int>, int, int);
 
-void QuickSort(vector<int>, int, int);
+vector<int> QuickSort(vector<int>, int, int);
 
 int MaxValue(vector<int>, int);
 
-void RadixSort(vector<int>, int);
+vector<int> RadixSort(vector<int>, int);
 
 int getRandomInt(int, int);
 
@@ -43,18 +43,18 @@ int main(int argc, char *argv[]){
         n++;
     }
 
-    if(alg == 'I') InsertSort(A, size), cout << "InsertSort" << endl;
-    if(alg == 'M') MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
-    else if(alg == 'Q') QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
-    else if(alg == 'R') RadixSort(A, size), cout << "RadixSort" << endl;
+    if(alg == 'I') A = InsertSort(A, size), cout << "InsertSort" << endl;
+    else if(alg == 'M') A = MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
+    else if(alg == 'Q') A = QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
+    else if(alg == 'R') A = RadixSort(A, size), cout << "RadixSort" << endl;
 
-    for(int k = 0; k < size; k++) output_file << A[k] << endl;
+    for(int k: A) output_file << k << endl;
     
     input_file.close();
     output_file.close();
 }
 
-void InsertSort(vector<int> A, int size){
+vector<int> InsertSort(vector<int> A, int size){
     for (int i = 1; i < size; i++) {
         int elem = A[i];
         int j = i-1;
@@ -64,9 +64,11 @@ void InsertSort(vector<int> A, int size){
         }
         A[j+1] = elem;
     }
+    return A;
+    // for (int i: A) cout << i << endl;
 }
 
-void Merge(vector<int> A, int i, int j, int k) {
+vector<int> Merge(vector<int> A, int i, int j, int k) {
     int Aux[j-i+1];
     int q = 0;
     int p1 = i;
@@ -97,9 +99,10 @@ void Merge(vector<int> A, int i, int j, int k) {
         A[s] = Aux[r];
         r++;
     }
+    return A;
 }
 
-void MergeSort(vector<int> A,int i,int j) {
+vector<int> MergeSort(vector<int> A,int i,int j) {
     int k = (i + j)/2;
 
     if (i < j) {
@@ -107,6 +110,7 @@ void MergeSort(vector<int> A,int i,int j) {
         MergeSort(A, k+1, j);
         Merge(A, i, j, k);
     }
+    return A;
 }
 
 int Split(vector<int> A, int i, int j) {
@@ -134,12 +138,13 @@ int Split(vector<int> A, int i, int j) {
     return p;
 }
 
-void QuickSort(vector<int> A, int i, int j) {
+vector<int> QuickSort(vector<int> A, int i, int j) {
     if (i < j) {
         int k = Split(A, i, j);
         QuickSort(A, i, k-1);
         QuickSort(A, k+1, j);
     }
+    return A;
 }
 
 int MaxValue(vector<int> A, int size){
@@ -150,7 +155,7 @@ int MaxValue(vector<int> A, int size){
     return Max;
 }
 
-void RadixSort(vector<int> A, int size) {
+vector<int> RadixSort(vector<int> A, int size) {
     int M = MaxValue(A, size);
     for(int i  = 1; i <= M; i *= 10){
         int k = 0;
@@ -172,6 +177,7 @@ void RadixSort(vector<int> A, int size) {
             A[n] = Aux[n];
         }
     }
+    return A;
 }
 
 int getRandomInt(int min, int max){
