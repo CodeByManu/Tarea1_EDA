@@ -12,9 +12,9 @@ vector<int> Merge(vector<int>, int, int, int);
 
 vector<int> MergeSort(vector<int>, int, int);
 
-int Split(vector<int>, int, int);
+int Split(vector<int>&, int, int);
 
-vector<int> QuickSort(vector<int>, int, int);
+vector<int> QuickSort(vector<int>&, int, int);
 
 int MaxValue(vector<int>, int);
 
@@ -69,7 +69,7 @@ vector<int> InsertSort(vector<int> A, int size){
 }
 
 vector<int> Merge(vector<int> A, int i, int j, int k) {
-    int Aux[j-i+1];
+    vector<int> Aux(j-i+1);
     int q = 0;
     int p1 = i;
     int p2 = k + 1;
@@ -106,14 +106,14 @@ vector<int> MergeSort(vector<int> A,int i,int j) {
     int k = (i + j)/2;
 
     if (i < j) {
-        MergeSort(A, i, k);
-        MergeSort(A, k+1, j);
-        Merge(A, i, j, k);
+        A = MergeSort(A, i, k);
+        A = MergeSort(A, k+1, j);
+        A = Merge(A, i, j, k);
     }
     return A;
 }
 
-int Split(vector<int> A, int i, int j) {
+int Split(vector<int>& A, int i, int j) {
 
     int p = getRandomInt(i, j);
 
@@ -138,11 +138,11 @@ int Split(vector<int> A, int i, int j) {
     return p;
 }
 
-vector<int> QuickSort(vector<int> A, int i, int j) {
+vector<int> QuickSort(vector<int>& A, int i, int j) {
     if (i < j) {
         int k = Split(A, i, j);
-        QuickSort(A, i, k-1);
-        QuickSort(A, k+1, j);
+        A = QuickSort(A, i, k-1);
+        A = QuickSort(A, k+1, j);
     }
     return A;
 }
