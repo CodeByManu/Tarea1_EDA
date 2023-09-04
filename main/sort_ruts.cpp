@@ -3,6 +3,8 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <ctime>
 
 using namespace std;
 
@@ -21,6 +23,9 @@ int MaxValue(vector<int>, int);
 vector<int> RadixSort(vector<int>, int);
 
 int getRandomInt(int, int);
+
+long getElapsedTime(chrono::time_point<chrono::high_resolution_clock>,
+                    chrono::time_point<chrono::high_resolution_clock>);
 
 int main(int argc, char *argv[]){
     string ifile_name = argv[1];
@@ -43,10 +48,15 @@ int main(int argc, char *argv[]){
         n++;
     }
 
+    auto t1 = chrono::high_resolution_clock::now();
+
     if(alg == 'I') A = InsertSort(A, size), cout << "InsertSort" << endl;
     else if(alg == 'M') A = MergeSort(A, 0, size - 1), cout << "MergeSort" << endl;
     else if(alg == 'Q') A = QuickSort(A, 0, size - 1), cout << "QuickSort" << endl;
     else if(alg == 'R') A = RadixSort(A, size), cout << "RadixSort" << endl;
+
+    auto t2 = chrono::high_resolution_clock::now();
+    cout << "Elapsed: " << getElapsedTime(t1, t2) << endl;
 
     for(int k: A) output_file << k << endl;
     
@@ -65,7 +75,6 @@ vector<int> InsertSort(vector<int> A, int size){
         A[j+1] = elem;
     }
     return A;
-    // for (int i: A) cout << i << endl;
 }
 
 vector<int> Merge(vector<int> A, int i, int j, int k) {
@@ -184,4 +193,10 @@ int getRandomInt(int min, int max){
     srand(time(nullptr));
     float a = rand() / static_cast<float>(RAND_MAX);
     return static_cast<int>(a * (max - min) + min + 0.5);
+}
+
+long getElapsedTime(chrono::time_point<chrono::high_resolution_clock> t1,
+                    chrono::time_point<chrono::high_resolution_clock> t2) {
+    auto int_ms = chrono::duration_cast<chrono::milliseconds> (t2 - t1);
+    return static_cast<long> (int_ms.count());
 }
