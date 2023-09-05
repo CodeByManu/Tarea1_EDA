@@ -66,9 +66,10 @@ int Split(std::vector<int>& A, int i, int j) {
         while (j > p and A[j] >= A[p]) {
             j--;
         }
-        int aux = A[i];
-        A[i] = A[j];
-        A[j] = aux;
+        // int aux = A[i];
+        // A[i] = A[j];
+        // A[j] = aux;
+        std::swap(A[i], A[j]);
         if (i == p) {
             p = j;
         } else {
