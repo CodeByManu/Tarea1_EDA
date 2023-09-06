@@ -1,7 +1,7 @@
 # Tarea 1
 
 ## Introducción
-Este README da instrucciones para configurar y correr el código de la Tarea 1. Para compilar y ejecutar el código de manera correcta, se tienen que sesguir las siguientes instrucciones.
+Este README da instrucciones para configurar y correr el código de la Tarea 1. Para compilar y ejecutar el código de manera correcta, se tienen que seguir las siguientes instrucciones.
 
 ## Estructura de Directorios
 
@@ -33,3 +33,8 @@ Reemplazar `[nombre_archivo].txt` con el nombre del archivo de entrada, y `[algo
 ```bash
 $ ./main ruts_100.txt I
 ```
+Considerando:
+- I: InsertionSort
+- M: MergeSort
+- Q: QuickSort
+- R: RadixSort
