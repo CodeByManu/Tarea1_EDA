@@ -1,4 +1,4 @@
-# README Tarea 1
+# Tarea 1
 
 ## Introducción
 Este README da instrucciones para configurar y correr el código de la Tarea 1. Para compilar y ejecutar el código de manera correcta, se tienen que sesguir las siguientes instrucciones.
