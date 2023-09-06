@@ -57,7 +57,8 @@ void MergeSort(std::vector<int>& A,int i,int j) {
 
 int Split(std::vector<int>& A, int i, int j) {
 
-    int p = getRandomInt(i, j);
+    // int p = getRandomInt(i, j);
+    int p = (i + j)/2;
 
     while (i < j) {
         while (i < p and A[i] <= A[p]) {
